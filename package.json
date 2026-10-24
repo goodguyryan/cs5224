@@ -1,0 +1,11 @@
+{
+  "name": "parliament-in-five",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "start:local": "npm --prefix ec2-instance/frontend run build && npm --prefix ec2-instance/backend run start:local"
+  }
+}

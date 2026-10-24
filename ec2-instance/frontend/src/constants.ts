@@ -1,0 +1,101 @@
+export const ROUTES = {
+  home: "/",
+  summary: "/summary/:hansardSummaryId",
+  summaryPrefix: "/summary/",
+} as const;
+export const SETTINGS = {
+  pageSize: 20,
+  apiBase: "/api",
+  timeout: 30000,
+  timeoutMaximum: 120000,
+} as const;
+export const COPY = {
+  brand: "Parliament in Five",
+  brandShort: "P / 5",
+  country: "Singapore",
+  navArchive: "The archive",
+  navAbout: "About the project",
+  heroEyebrow: "A little time. A clearer picture.",
+  heroTitle: "Your Parliament.",
+  heroAccent: "Five minutes.",
+  heroDescription:
+    "Make room for what matters. Catch up on Singapore’s parliamentary discussions with concise, readable Hansard summaries — and follow the source whenever you want to go deeper.",
+  browse: "Browse reports",
+  heroNote: "Free to read. No account needed.",
+  featureLabel: "THE IDEA",
+  featureTitle: "Big discussions.\nA smaller read.",
+  featureDescription:
+    "From the chamber to your coffee break. Get the substance of the discussion, then explore the full official record.",
+  featureIndex: "01 / READ · REFLECT · EXPLORE",
+  sealNumber: "5",
+  sealLabel: "MIN READ",
+  aboutTitle: "Stay informed, at your pace.",
+  features: [
+    {
+      number: "01",
+      title: "Start with the essentials",
+      body: "An approachable five-minute read to help you follow the discussions shaping Singapore.",
+    },
+    {
+      number: "02",
+      title: "Keep the source close",
+      body: "Every report in the archive links to the official Hansard, so you can read the discussion in full.",
+    },
+    {
+      number: "03",
+      title: "Return whenever you like",
+      body: "A growing archive of saved summaries, ready when you have a moment.",
+    },
+  ],
+  archiveEyebrow: "THE READING ROOM",
+  archiveTitle: "The report archive",
+  archiveDescription:
+    "A clearer view of the conversation, one report at a time.",
+  archiveTag: "LATEST FIRST",
+  tableCaption: "Published Hansard reports and their five-minute summaries",
+  columns: {
+    number: "No.",
+    date: "Report release date",
+    official: "The official record",
+    summary: "Your five-minute read",
+  },
+  official: "Official report",
+  read: "Read summary",
+  loadingArchive: "Opening the archive…",
+  loadingSummary: "Preparing your read…",
+  emptyTitle: "The first read is on its way.",
+  emptyBody:
+    "Published reports will appear here when their summaries are ready. Come back soon.",
+  errorEyebrow: "A MOMENTARY PAUSE",
+  errorTitle: "We couldn’t load this page.",
+  archiveErrorTitle: "The archive is taking a moment.",
+  errorBody:
+    "Please try again in a moment. If the problem continues, come back a little later.",
+  retry: "Try again",
+  backHome: "Back home",
+  previous: "Previous",
+  next: "Next",
+  paginationLabel: "Report archive pages",
+  page: "Page",
+  of: "of",
+  showing: "Showing",
+  reports: "reports",
+  readerEyebrow: "THE FIVE-MINUTE READ",
+  readerBadge: "A moment to catch up",
+  readerEnd: "You’re all caught up.",
+  readerEndBody: "Explore another report in the archive.",
+  notFoundEyebrow: "404 / PAGE NOT FOUND",
+  notFoundTitle: "This page isn’t in the record.",
+  notFoundBody: "Head back to the archive to find your next read.",
+  footerDescription:
+    "A student project making Singapore’s parliamentary discussions easier to follow.",
+  footerNote:
+    "An independent summary project. For the authoritative record, consult the official Hansard.",
+  footerLocation: "Made for curious minds in Singapore.",
+  skip: "Skip to content",
+  newTab: "(opens in a new tab)",
+  configurationError:
+    "The application configuration is unavailable. Please contact the site administrator.",
+  requestError: "The report request failed.",
+  invalidResponse: "The report response is invalid.",
+} as const;

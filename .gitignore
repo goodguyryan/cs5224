@@ -7,3 +7,10 @@ data/
 .env.*
 !.env.example
 /webscraping/tests
+
+# EC2 web application
+/ec2-instance/frontend/node_modules/
+/ec2-instance/backend/node_modules/
+/ec2-instance/frontend/dist/
+/ec2-instance/backend/dist/
+*.tsbuildinfo
