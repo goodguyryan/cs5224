@@ -1,0 +1,27 @@
+{
+  "sitting_id": "2026-10-07",
+  "sitting_date": "2026-10-07",
+  "source": {
+    "public_url": "https://sprs.parl.gov.sg/search/#/fullreport?sittingdate=7-10-2026",
+    "raw_key": "raw/sittings/2026-10-07.json",
+    "sha256": "fictional-gold-example-not-a-real-checksum"
+  },
+  "metadata": {"sittingDate": "07-10-2026", "note": "FICTIONAL GOLD EXAMPLE: names and text are invented to show the format."},
+  "collection_counts": {"takesSectionVOList": 1},
+  "supporting_collections": {},
+  "segment_count": 1,
+  "segments": [
+    {
+      "local_segment_id": "2026-10-07/takesSectionVOList/0005",
+      "source_position": {"collection": "takesSectionVOList", "index": 5},
+      "title": "Household Energy Rebates",
+      "subtitle": null,
+      "section_type": "WA",
+      "report_type": null,
+      "question_number": "12",
+      "content_text": "12 Mr Kumar Raj asked the Minister for Sustainability whether household energy rebates will continue after December 2026.\n\nThe Minister for Sustainability (Dr Mei Chen): Household energy rebates will be extended to March 2027 for households in one- to three-room flats. About 300,000 households are expected to benefit.",
+      "source_record": {}
+    }
+  ],
+  "warnings": []
+}

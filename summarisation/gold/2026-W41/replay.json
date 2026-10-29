@@ -1,0 +1,76 @@
+{
+  "note": "Saved model replies for evaluate.py --replay. Some replies contain deliberate mistakes so the checks have something to catch.",
+  "items": {
+    "2026-10-06/takesSectionVOList/0000": {"topic": "parliament", "claims": []},
+    "2026-10-06/takesSectionVOList/0003": {
+      "topic": "health",
+      "claims": [
+        {"type": "question", "speakers": ["Ms Rina Lim"], "paragraph": 1,
+         "text": "Ms Rina Lim asked for the median waiting time for a first appointment at public specialist clinics.",
+         "quote": "what is the median waiting time for a first appointment at public specialist clinics"},
+        {"type": "answer", "speakers": ["The Minister for Health (Dr Aaron Koh)"], "paragraph": 2,
+         "text": "Dr Aaron Koh said the median wait fell from forty days to thirty-two days over the past year.",
+         "quote": "The median waiting time fell from forty days to thirty-two days over the past year"},
+        {"type": "answer", "speakers": ["The Minister for Health (Dr Aaron Koh)"], "paragraph": 2,
+         "text": "He added that four more clinics now offer evening appointments.",
+         "quote": "Four more clinics now offer evening appointments"},
+        {"type": "answer", "speakers": ["Ms Rina Lim"], "paragraph": 4,
+         "text": "Waiting times for each clinic will be published from next year so that patients can choose where to go.",
+         "quote": "We will publish waiting times for each clinic from next year"}
+      ]
+    },
+    "2026-10-06/takesSectionVOList/0014": {
+      "topic": "transport",
+      "claims": [
+        {"type": "statement", "speakers": ["The Minister for Transport (Ms Grace Ho)"], "paragraph": 2,
+         "text": "Ms Grace Ho said the Bill will require community bus operators to publish an accessibility plan every year.",
+         "quote": "The Bill will require community bus operators to publish an accessibility plan every year"},
+        {"type": "question", "speakers": ["Mr Daniel Ong (Example East GRC)"], "paragraph": 3,
+         "text": "Mr Daniel Ong asked how small operators would meet the cost of preparing the plans.",
+         "quote": "how they will meet the cost of preparing these plans"},
+        {"type": "answer", "speakers": ["Ms Grace Ho"], "paragraph": 4,
+         "text": "Ms Grace Ho said small operators will have a two-year transition period and a template from the Land Transport Authority.",
+         "quote": "Small operators will have a two-year transition period"},
+        {"type": "decision", "speakers": [], "paragraph": 6,
+         "text": "The Bill was read a second time and committed to a Committee of the whole House.",
+         "quote": "Bill accordingly read a Second time and committed to a Committee of the whole House"},
+        {"type": "statement", "speakers": ["Ms Grace Ho"], "paragraph": 4,
+         "text": "The accessibility plans will cost operators $5 million a year.",
+         "quote": "the plans will cost operators five million dollars a year"}
+      ]
+    },
+    "2026-10-07/takesSectionVOList/0005": {
+      "topic": "cost_of_living",
+      "claims": [
+        {"type": "question", "speakers": ["Mr Kumar Raj"], "paragraph": 1,
+         "text": "Mr Kumar Raj asked whether household energy rebates will continue after December 2026.",
+         "quote": "whether household energy rebates will continue after December 2026"},
+        {"type": "answer", "speakers": ["The Minister for Sustainability (Dr Mei Chen)"], "paragraph": 2,
+         "text": "Dr Mei Chen said the rebates will be extended to March 2027 for households in one- to three-room flats, benefiting about 300,000 households.",
+         "quote": "Household energy rebates will be extended to March 2027 for households in one- to three-room flats"}
+      ]
+    }
+  },
+  "digest": {
+    "sections": [
+      {"topic": "health", "paragraphs": [
+        {"text": "Ms Rina Lim asked how long patients wait for a first appointment at public specialist clinics. The Minister for Health, Dr Aaron Koh, said the median wait fell from forty days to thirty-two days over the past year, and that four more clinics now offer evening appointments.",
+         "claims": ["1.1", "1.2", "1.3"]},
+        {"text": "Waiting times for each clinic will be published from next year, so that patients can choose where to go.",
+         "claims": ["1.4"]}
+      ]},
+      {"topic": "transport", "paragraphs": [
+        {"text": "The Community Transport Bill will require community bus operators to publish an accessibility plan every year, the Minister for Transport, Ms Grace Ho, told the House. Answering Mr Daniel Ong, she said small operators will have a two-year transition period and a template from the Land Transport Authority.",
+         "claims": ["2.1", "2.3"]},
+        {"text": "The Bill was read a second time and committed to a Committee of the whole House.",
+         "claims": ["2.4"]},
+        {"text": "Operators welcomed the change.",
+         "claims": ["4.1"]}
+      ]},
+      {"topic": "cost_of_living", "paragraphs": [
+        {"text": "Mr Kumar Raj asked whether household energy rebates will continue after December 2026. In a written answer, the Minister for Sustainability, Dr Mei Chen, said they will be extended to March 2027 for households in one- to three-room flats, benefiting about 300,000 households.",
+         "claims": ["3.1", "3.2"]}
+      ]}
+    ]
+  }
+}

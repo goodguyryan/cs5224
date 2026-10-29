@@ -1,0 +1,49 @@
+{
+  "sitting_id": "2026-10-06",
+  "sitting_date": "2026-10-06",
+  "source": {
+    "public_url": "https://sprs.parl.gov.sg/search/#/fullreport?sittingdate=6-10-2026",
+    "raw_key": "raw/sittings/2026-10-06.json",
+    "sha256": "fictional-gold-example-not-a-real-checksum"
+  },
+  "metadata": {"sittingDate": "06-10-2026", "note": "FICTIONAL GOLD EXAMPLE: names and text are invented to show the format."},
+  "collection_counts": {"takesSectionVOList": 3},
+  "supporting_collections": {},
+  "segment_count": 3,
+  "segments": [
+    {
+      "local_segment_id": "2026-10-06/takesSectionVOList/0000",
+      "source_position": {"collection": "takesSectionVOList", "index": 0},
+      "title": "Permission to Members to be Absent",
+      "subtitle": null,
+      "section_type": "OS",
+      "report_type": null,
+      "question_number": null,
+      "content_text": "Mr Speaker: I have received a letter from a Member asking for permission to be absent from today's sitting.\n\nPermission granted.",
+      "source_record": {}
+    },
+    {
+      "local_segment_id": "2026-10-06/takesSectionVOList/0003",
+      "source_position": {"collection": "takesSectionVOList", "index": 3},
+      "title": "Clinic Waiting Times",
+      "subtitle": null,
+      "section_type": "OA",
+      "report_type": null,
+      "question_number": "1",
+      "content_text": "1 Ms Rina Lim asked the Minister for Health what is the median waiting time for a first appointment at public specialist clinics.\n\nThe Minister for Health (Dr Aaron Koh): The median waiting time fell from forty days to thirty-two days over the past year. Four more clinics now offer evening appointments.\n\nMs Rina Lim (Example GRC): Will the Ministry publish waiting times for each clinic?\n\nDr Aaron Koh: We will publish waiting times for each clinic from next year, so that patients can choose where to go.",
+      "source_record": {}
+    },
+    {
+      "local_segment_id": "2026-10-06/takesSectionVOList/0014",
+      "source_position": {"collection": "takesSectionVOList", "index": 14},
+      "title": "Community Transport Bill",
+      "subtitle": "Second Reading",
+      "section_type": "BP",
+      "report_type": null,
+      "question_number": null,
+      "content_text": "Order for Second Reading read.\n\nThe Minister for Transport (Ms Grace Ho): Mr Speaker, I beg to move, \"That the Bill be now read a second time.\" The Bill will require community bus operators to publish an accessibility plan every year.\n\nMr Daniel Ong (Example East GRC): Small operators run only a few buses. I ask the Minister how they will meet the cost of preparing these plans.\n\nMs Grace Ho: Small operators will have a two-year transition period, and the Land Transport Authority will provide a template for the plan.\n\nQuestion put, and agreed to.\n\nBill accordingly read a Second time and committed to a Committee of the whole House.",
+      "source_record": {}
+    }
+  ],
+  "warnings": []
+}

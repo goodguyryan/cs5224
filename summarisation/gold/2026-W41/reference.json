@@ -1,0 +1,47 @@
+{
+  "week": "2026-W41",
+  "note": "FICTIONAL GOLD EXAMPLE. A key point is covered when every keyword appears; speaker is the person the point must be credited to.",
+  "key_points": [
+    {
+      "id": "clinic-wait-fell",
+      "segment_id": "2026-10-06/takesSectionVOList/0003",
+      "point": "The median wait for a first specialist appointment fell from 40 to 32 days.",
+      "keywords": ["forty", "thirty-two"],
+      "speaker": "Dr Aaron Koh"
+    },
+    {
+      "id": "clinic-times-published",
+      "segment_id": "2026-10-06/takesSectionVOList/0003",
+      "point": "Waiting times for each clinic will be published from next year.",
+      "keywords": ["published", "next year"],
+      "speaker": "Dr Aaron Koh"
+    },
+    {
+      "id": "transport-plans",
+      "segment_id": "2026-10-06/takesSectionVOList/0014",
+      "point": "The Bill requires community bus operators to publish yearly accessibility plans.",
+      "keywords": ["accessibility plan"],
+      "speaker": "Ms Grace Ho"
+    },
+    {
+      "id": "transport-transition",
+      "segment_id": "2026-10-06/takesSectionVOList/0014",
+      "point": "Small operators get a two-year transition period.",
+      "keywords": ["two-year transition"],
+      "speaker": "Ms Grace Ho"
+    },
+    {
+      "id": "transport-second-reading",
+      "segment_id": "2026-10-06/takesSectionVOList/0014",
+      "point": "The Bill was read a second time.",
+      "keywords": ["read a second time"]
+    },
+    {
+      "id": "energy-rebates",
+      "segment_id": "2026-10-07/takesSectionVOList/0005",
+      "point": "Energy rebates extended to March 2027 for one- to three-room flats.",
+      "keywords": ["March 2027"],
+      "speaker": "Dr Mei Chen"
+    }
+  ]
+}
