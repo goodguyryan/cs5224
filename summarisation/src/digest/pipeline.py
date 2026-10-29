@@ -6,7 +6,7 @@ import hashlib
 from datetime import datetime, timezone
 from typing import Any, Callable, NoReturn
 
-from .compose import compose_digest, render_body
+from .compose import compose_digest, link_earlier_topics, render_body
 from .model import RetryableError, is_retryable
 from .review import DIGEST, get_record, item_record_id, next_revision, put_record, week_items
 from .summarise import find_segment, summarise_segment
@@ -96,8 +96,9 @@ def build_week_digest(
     *,
     table: Any,
     model: Any,
+    load_document: LoadDocument | None = None,
 ) -> dict[str, Any]:
-    """Return without a digest when the week has no usable items."""
+    """Return without a digest when the week has no usable items. Earlier-topic links need load_document."""
 
     records = week_items(table, week)
     failed = sorted(record["segment_id"] for record in records if record["status"] == "failed")
@@ -119,6 +120,8 @@ def build_week_digest(
     revision = next_revision(existing)
     try:
         digest = compose_digest(week, items, model)
+        if load_document is not None:
+            link_earlier_topics(digest, week=week, table=table, load_document=load_document)
         digest["body"] = render_body(digest)
     except Exception as error:
         _record_failure(table, key, existing, revision, error)

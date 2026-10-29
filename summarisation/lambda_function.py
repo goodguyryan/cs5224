@@ -93,6 +93,8 @@ def summarise_item_handler(event, context):
 
 
 def build_digest_handler(event, context):
-    result = build_week_digest(event["week"], table=_review_table(), model=_model())
+    result = build_week_digest(
+        event["week"], table=_review_table(), model=_model(), load_document=_loader(_s3()),
+    )
     print(json.dumps(result))
     return result

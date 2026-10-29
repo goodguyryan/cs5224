@@ -2,14 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Callable
 
-from .citations import same_speaker, speaker_in_text
+from .citations import contains, normalise, same_speaker, speaker_in_text
 from .model import ModelOutputError, parse_json_reply
-from .summarise import TOPICS
-from .weeks import day_label, week_monday
+from .review import DIGEST, get_record
+from .summarise import TOPICS, find_segment
+from .weeks import day_label, earlier_weeks, week_monday
 
 MIN_WORDS, MAX_WORDS = 700, 900
+EARLIER_WEEKS = 8
 
 DIGEST_SYSTEM = f"""You write "Parliament in Five", a weekly digest of Singapore's Parliament that takes about five minutes to read.
 
@@ -148,6 +150,39 @@ def compose_digest(week: str, items: list[dict[str, Any]], model: Any) -> dict[s
         "dropped_paragraphs": dropped,
         "speaker_flags": speaker_flags(sections, index),
     }
+
+
+def link_earlier_topics(digest: dict[str, Any], *, week: str, table: Any,
+                        load_document: Callable[[str], dict[str, Any]]) -> None:
+    """Link a section to an approved earlier digest only when the original passage confirms it.
+
+    A topic tag alone is too loose: the earlier item's heading must appear in the current
+    item's Hansard text, or be the current item's heading too (a Bill returning, for example).
+    """
+
+    records = (get_record(table, other, DIGEST) for other in earlier_weeks(week, EARLIER_WEEKS))
+    earlier = [record for record in records if record and record["status"] == "approved"]
+    by_ref = {item["ref"]: item for item in digest["cited_items"]}
+    documents: dict[str, dict[str, Any]] = {}
+    for section in digest["sections"]:
+        refs = list(dict.fromkeys(ref for paragraph in section["paragraphs"] for ref in paragraph["refs"]))
+        links = []
+        for record in earlier:
+            for old in record.get("cited_items", []):
+                title = old.get("title") or ""
+                if old.get("topic") != section["topic"] or len(normalise(title).split()) < 2:
+                    continue
+                for ref in refs:
+                    item = by_ref[ref]
+                    if item["s3_key"] not in documents:
+                        documents[item["s3_key"]] = load_document(item["s3_key"])
+                    passage = find_segment(documents[item["s3_key"]], item["segment_id"])["content_text"]
+                    if normalise(title) == normalise(item["title"]) or contains(passage, title):
+                        links.append({"week_id": record["week_id"], "title": title,
+                                      "segment_id": old["segment_id"], "matched_segment_id": item["segment_id"]})
+                        break
+        if links:
+            section["earlier"] = list({(link["week_id"], link["title"]): link for link in links}.values())
 
 
 def render_body(digest: dict[str, Any]) -> str:

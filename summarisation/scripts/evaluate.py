@@ -61,7 +61,7 @@ def evaluate_week(folder: Path, model) -> dict:
                 summarise_item(load, key, segment["local_segment_id"], week=week, table=table, model=model)
             except Exception as error:
                 failures.append({"segment_id": segment["local_segment_id"], "error": str(error)})
-    build_week_digest(week, table=table, model=model)
+    build_week_digest(week, table=table, model=model, load_document=load)
     digest = get_record(table, week, DIGEST)
     items = {item["segment_id"]: item for item in week_items(table, week)}
 
