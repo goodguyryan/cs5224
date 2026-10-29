@@ -123,5 +123,99 @@ points: a key point is covered when one digest paragraph contains all its keywor
 and its speaker is checked against the claims that contain them. The example week
 `gold/2026-W41` is fictional and has deliberate mistakes in `replay.json`.
 
-No AWS resources are created by this project. For deployment, place
-`lambda_function.py` and `src/` at the ZIP root.
+No AWS resources are created by this project.
+
+## AWS deployment (code prepared, not deployed)
+
+Use `ap-southeast-1` throughout. The scraper's buckets and the reader's table and
+summary bucket are set up by their own guides; these steps cover this folder only.
+
+1. **Bedrock model access.** Enable Amazon Nova Lite. Under cross-region inference,
+   confirm the APAC profile ID matches `BEDROCK_INFERENCE_PROFILE`
+   (`apac.amazon.nova-lite-v1:0`).
+2. **Review table.** Create a DynamoDB table with on-demand capacity, String
+   partition key `week_id` and String sort key `record_id`, and no indexes. It is
+   separate from the reader's table, which holds only approved reports.
+3. **Lambda execution role.** Trust `lambda.amazonaws.com`, attach
+   `AWSLambdaBasicExecutionRole`, and add:
+
+   ```json
+   {
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Sid": "ReadProcessedSittings",
+         "Effect": "Allow",
+         "Action": "s3:GetObject",
+         "Resource": "arn:aws:s3:::YOUR-PROCESSED-BUCKET/processed/sittings/*"
+       },
+       {
+         "Sid": "RecognizeMissingSittings",
+         "Effect": "Allow",
+         "Action": "s3:ListBucket",
+         "Resource": "arn:aws:s3:::YOUR-PROCESSED-BUCKET"
+       },
+       {
+         "Sid": "ReviewRecords",
+         "Effect": "Allow",
+         "Action": ["dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:Query"],
+         "Resource": "arn:aws:dynamodb:ap-southeast-1:ACCOUNT_ID:table/YOUR-REVIEW-TABLE"
+       },
+       {
+         "Sid": "InvokeNovaLiteThroughApacProfile",
+         "Effect": "Allow",
+         "Action": "bedrock:InvokeModel",
+         "Resource": [
+           "arn:aws:bedrock:ap-southeast-1:ACCOUNT_ID:inference-profile/apac.amazon.nova-lite-v1:0",
+           "arn:aws:bedrock:*::foundation-model/amazon.nova-lite-v1:0"
+         ]
+       }
+     ]
+   }
+   ```
+
+   The profile routes requests to other APAC Regions, so the model ARN needs every
+   Region the profile lists; `*` covers them.
+4. **Package.** Build a ZIP whose root contains `lambda_function.py` and `src/`
+   (`src/digest/*.py`), as in the scraper's packaging guide. Do not include `tests/`,
+   `gold/`, `scripts/` or `.env`.
+5. **Three functions from the one ZIP.** Python 3.13, the role from step 3:
+
+   | Function | Handler | Timeout | Memory |
+   |---|---|---|---|
+   | list items | `lambda_function.list_items_handler` | 60 s | 512 MB |
+   | summarise item | `lambda_function.summarise_item_handler` | 120 s | 512 MB |
+   | build digest | `lambda_function.build_digest_handler` | 900 s | 512 MB |
+
+   Set `PROCESSED_BUCKET`, `REVIEW_TABLE`, `BEDROCK_MODEL_ID`,
+   `BEDROCK_INFERENCE_PROFILE` and optionally `CITATION_MODEL_CHECK` on each.
+   Lambda sets `AWS_REGION` itself.
+6. **State machine.** After the scraper's task:
+
+   ```text
+   ListItems     input {}  (or {"week": "2026-W41"} for a manual run)
+   Map           ItemsPath $.items, MaxConcurrency 4, ResultPath null
+     SummariseItem
+       Retry RetryableError: IntervalSeconds 5, BackoffRate 2, MaxAttempts 4
+       Retry ModelOutputError: MaxAttempts 1
+       Catch States.ALL -> next item (the item is already marked failed)
+   BuildDigest   input {"week.$": "$.week"}
+       Retry RetryableError: IntervalSeconds 10, BackoffRate 2, MaxAttempts 3
+   ```
+
+   Do not retry `ItemError`, `ValueError` or `KeyError`. The Step Functions role
+   needs `lambda:InvokeFunction` on the three functions and the scraper.
+7. **Schedule.** Point EventBridge Scheduler at the state machine rather than the
+   scraper Lambda, for example `cron(0 9 ? * MON *)` in `Asia/Singapore` with input
+   `{}`. The scheduler role needs `states:StartExecution`. Scheduled runs digest
+   the previous week; run a later sitting's week again by hand.
+8. **Reviewer access.** Whoever runs `scripts/approve_week.py` needs their own
+   credentials with `dynamodb:GetItem`, `Query` and `PutItem` on the review table,
+   `dynamodb:PutItem` on the reader table, and `s3:PutObject` on
+   `arn:aws:s3:::YOUR_SUMMARY_BUCKET/summaries/*`. Set `AWS_REGION`,
+   `REVIEW_TABLE`, `DYNAMODB_TABLE_NAME` and `S3_SUMMARY_BUCKET` in that shell.
+   The EC2 reader role stays read-only.
+9. **First run.** Start the state machine by hand with a week that has sittings.
+   Check the review table for `ITEM#...` records and a `pending` `DIGEST`, then run
+   `approve_week.py` for that week and confirm the digest appears on the reader site.
+   Add a CloudWatch alarm on failed executions.
